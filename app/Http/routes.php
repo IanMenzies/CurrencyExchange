@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::post('currencyExchangeRate', 'CurrencyController@currencyExchangeRequest');
 
-Route::get('home', 'HomeController@index');
+Route::get('currencyexchange/trendsgraph', function() {
+	return View::make('currencyExchange.trends.graphs');
+});
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);

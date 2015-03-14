@@ -14,6 +14,12 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
+		//Turns off CSRF protection for POST requests
+		if ($request->method() == 'POST') 
+		{
+			return $next($request);
+		}
+
 		return parent::handle($request, $next);
 	}
 

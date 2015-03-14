@@ -13,7 +13,7 @@
 		"pda/pheanstalk" : "~3.0",
 		"iron-io/iron_mq": "~1.5",
 		"predis/predis"  : "~1.0",
-		"nnnick/chartjs": "1.0.1.*@dev"
+		"nnnick/chartjs" : "1.0.1.*"
 	},
 	"autoload": {
 		"classmap": [

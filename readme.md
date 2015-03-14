@@ -1,23 +1,52 @@
-## Laravel PHP Framework
+README
+------
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+ENDPOINT
+--------
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+http://localhost/laravel/public/index.php/currencyExchangeRate
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-## Official Documentation
+GRAPH URL
+---------
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+http://localhost/laravel/public/index.php/currencyexchange/trendsgraph
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+REQUIREMENTS
+------------
+1. Redis server needs to be running off localhost port 6379. (Queues in laravel use Redis)
+2. Node JS running
+  a) cd to laravel\public\nodejs
+  b) node nodejs
+3) Ensure the queue listener is running in the background.
+  a) php artisan queue:listen
+	or
+  b) php artisan queue:work --daemon --sleep=3 --tries=3
 
-### License
+Running the queue listen command is CPU intesive so its recommended that you use a daemon.(View laravel 5 documents: http://laravel.com/docs/5.0/queues).
+Setting up allowed attempts is also recommended.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Technologies Used
+-----------------
+
+I used Laravel 5 as the framework. This is my first encounter with the Laravel 5 framework.
+I usually use Zend Framework 2.
+
+For this to be a real-time application I used 4 technologies. Redis, Nodejs, Chartjs, socketio which was the first time as well that I've dealt with all these technologies.
+
+The areas covered in this application are:
+1) Receive the Json request.
+2) Ensure the request is correctly formatted.
+3) Ensure the same IP address hasnt made over X amount of requests within the hour(RateLimiter).
+4) Validate the request ensuring the data is correct data type.(Currently only compatible with EUR, USD, GBP, XXX)
+5) Once valid, the data is pushed to the queue(Redis)
+6) Once pushed to the queue it is then forwarded onto the handler to process the request.
+7) The request is then passed to a facade which passes the data to a currency exchange helper to determine any trends.(As I didnt have time the algorithm is atrociously basic here)
+8) The data is then passed to the facade again and formatted for the graph(Time-restraint meant that I just pass the array back)
+9) Once the above steps are performed then the app publish's the trends so that it can be used in the template to update the graph.(Time-restraint, ideally I wanted to move this to an event class)
+10) Socket.io Nodejs and Graphjs then work together to listen for a publish, when this happens an event occurrs and the updates the graph to display the data.(graph.js file needs a good bit of work to it. socket.io all the logic should
+be seperated out into their won functions for clarity and functionality purposes)
+
+Ideally if I had more time I would've improved the sections mentioned above. I've also left some TODO's in the code where I would've of altercations.
+

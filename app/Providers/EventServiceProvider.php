@@ -2,6 +2,8 @@
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Handlers\Events\AddCurrencyExchangeTrendToRealTimeApplicationHandler;
+use App\Events\addCurrencyExchangeTrendToRealTimeApplication;
 
 class EventServiceProvider extends ServiceProvider {
 
@@ -13,6 +15,10 @@ class EventServiceProvider extends ServiceProvider {
 	protected $listen = [
 		'event.name' => [
 			'EventListener',
+		],
+
+		AddCurrencyExchangeTrendToRealTimeApplication::class => [
+			AddCurrencyExchangeTrendToRealTimeApplicationHandler::class,
 		],
 	];
 
