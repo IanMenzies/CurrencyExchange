@@ -50,4 +50,3 @@ be seperated out into their won functions for clarity and functionality purposes
 
 Ideally if I had more time I would've improved the sections mentioned above. I've also left some TODO's in the code where I would've of altercations.
 
-Also would've implemented PHPunit tests. Testing the app CPU performance and how it handles x amount of requests per minute. Also testing the core functionality. TDD all the way.

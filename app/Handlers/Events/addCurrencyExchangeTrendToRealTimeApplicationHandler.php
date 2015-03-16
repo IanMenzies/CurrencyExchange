@@ -24,8 +24,7 @@ class AddCurrencyExchangeTrendToRealTimeApplicationHandler {
 	 */
 	public function handle(addCurrencyExchangeTrendToRealTimeApplication $event)
 	{
-		exit($event);
-		exit("here");
+		//TODO push the currency exchange data to here
 	}
 
 }
