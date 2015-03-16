@@ -39,9 +39,9 @@ The areas covered in this application are:
 1) Receive the Json request.
 2) Ensure the request is correctly formatted.
 3) Ensure the same IP address hasnt made over X amount of requests within the hour(RateLimiter).
-4) Validate the request ensuring the data is correct data type.(Currently only compatible with EUR, USD, GBP, XXX)
+4) Validate the request ensuring the data is correct data type.
 5) Once valid, the data is pushed to the queue(Redis)
-6) Once pushed to the queue it is then forwarded onto the handler to process the request.
+6) Once pushed to the queue it is then forwarded onto the handler to process the request.(Note 9 in a particular currency is considered a low Purchase)
 7) The request is then passed to a facade which passes the data to a currency exchange helper to determine any trends.(As I didnt have time the algorithm is atrociously basic here)
 8) The data is then passed to the facade again and formatted for the graph(Time-restraint meant that I just pass the array back)
 9) Once the above steps are performed then the app publish's the trends so that it can be used in the template to update the graph.(Time-restraint, ideally I wanted to move this to an event class)
