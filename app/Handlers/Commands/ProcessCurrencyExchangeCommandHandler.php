@@ -3,7 +3,7 @@
 use App\Commands\ProcessCurrencyExchangeCommand;
 
 use Illuminate\Queue\InteractsWithQueue;
-use App\Services\Module\CurrencyExchange\CurrencyExchangeFacade;
+use App\Services\Module\currencyExchange\CurrencyExchangeFacade;
 use Log;
 
 /**

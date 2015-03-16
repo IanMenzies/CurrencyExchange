@@ -9,7 +9,7 @@ use Redis;
  * This class enables us to perform the key business rules of the app
  * as well as preparing and rendering the data to the view.
  */
-class CurrencyProcessor 
+class CurrencyExchangeFacade 
 {
 	/* instance of a currency Exchange helper */
 	protected $currencyExchangeHelper;
