@@ -4,7 +4,7 @@ use Validator;
 /**
  * The currency exchange validator with validating a request
  */
-class currencyValidator 
+class CurrencyValidator 
 {
 	/** we define rules for our custom rules here **/
 	protected $messages = array(

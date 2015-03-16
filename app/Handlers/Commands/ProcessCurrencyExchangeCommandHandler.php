@@ -3,7 +3,7 @@
 use App\Commands\ProcessCurrencyExchangeCommand;
 
 use Illuminate\Queue\InteractsWithQueue;
-use App\Services\Module\CurrencyExchange\CurrencyProcessor;
+use App\Services\Module\CurrencyExchange\CurrencyExchangeFacade;
 use Log;
 
 /**
@@ -12,12 +12,12 @@ use Log;
  */
 class ProcessCurrencyExchangeCommandHandler 
 {
-	/** instance of currency processor**/
-	protected $currencyProcessor;
+	/** instance of currency exchange facade**/
+	protected $currencyExchangeFacade;
 
-	public function __construct(CurrencyProcessor $currencyProcessor)
+	public function __construct(CurrencyExchangeFacade $currencyExchangeFacade)
 	{
-		$this->currencyProcessor = $currencyProcessor;
+		$this->currencyExchangeFacade = $currencyExchangeFacade;
 	}
 
 	/** 
@@ -35,15 +35,15 @@ class ProcessCurrencyExchangeCommandHandler
 		} else {
 
 			//build the currency exchange request for the view/graphs
-			$currencyExchangeData = $this->currencyProcessor->buildCurrencyObjectForView($job->currencyExchangeData);
+			$currencyExchangeData = $this->currencyExchangeFacade->buildCurrencyObjectForView($job->currencyExchangeData);
 			//determines if theres any trends within the currencyexchange request
-			$currencyExchangeData = $this->currencyProcessor->checkCurrencyExchangeForTrend($currencyExchangeData);
+			$currencyExchangeData = $this->currencyExchangeFacade->checkCurrencyExchangeForTrend($currencyExchangeData);
 
 			try {
 				//processed the currency exchange in real time for the view
-				$this->currencyProcessor->addCurrencyExchangeTrendToRealTimeApplication($currencyExchangeData);
+				$this->currencyExchangeFacade->addCurrencyExchangeTrendToRealTimeApplication($currencyExchangeData);
 
-				//We can save the currency exchange to the DB here in the future if needs be
+			//We can save the currency exchange to the DB here in the future if needs be
 			} catch (Exception $e) {
 				//if there was an issue with performing the above 3 steps log an error
 				Log::error('Issue rendering data for the graph/view:' . $e);
