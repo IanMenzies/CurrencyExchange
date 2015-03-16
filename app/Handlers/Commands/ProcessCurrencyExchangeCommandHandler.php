@@ -42,13 +42,14 @@ class ProcessCurrencyExchangeCommandHandler
 			try {
 				//processed the currency exchange in real time for the view
 				$this->currencyExchangeFacade->addCurrencyExchangeTrendToRealTimeApplication($currencyExchangeData);
-
 			//We can save the currency exchange to the DB here in the future if needs be
 			} catch (Exception $e) {
 				//if there was an issue with performing the above 3 steps log an error
 				Log::error('Issue rendering data for the graph/view:' . $e);
 			}
 		}
+		
+		$job->delete();
 		//Performs the next job in 5 seconds.
 		$job->release(5);
 	}	

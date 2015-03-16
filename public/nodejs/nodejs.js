@@ -12,7 +12,7 @@ server.listen(8080, 'localhost');
  
 io.listen(server).on('connection', function(client) {
     const redisClient = redis.createClient()
-    redisClient.subscribe('currencyexchange.update');
+    redisClient.subscribe('currencyexchange.graphtrend');
 
     redisClient.on('message', function(channel, message) {
         client.emit(channel, message);

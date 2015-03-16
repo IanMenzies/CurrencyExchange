@@ -10,10 +10,6 @@
 				<div class="panel-body">
 					<div class="charts">
 
-					<canvas class="trend-chart" width="800px" height="300px">
-						
-					</canvas>
-
 					<canvas class="trend-chart-two" width="800px" height="300px">
 						
 					</canvas>

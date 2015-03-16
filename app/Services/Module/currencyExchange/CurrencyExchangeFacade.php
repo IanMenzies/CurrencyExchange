@@ -53,20 +53,8 @@ class CurrencyExchangeFacade
 	public function addCurrencyExchangeTrendToRealTimeApplication($currencyExchangeData)
 	{
 		$redis = Redis::connection();
-
-		//TODO move this to single request to reduce overheads and network traffic
-		if (isset($currencyExchangeData['highPurchase'])) {
-			$redis->publish('currencyexchange.highpurchase', 'true');
-		} else {
-			$redis->publish('currencyexchange.highpurchase', 'false');
-		}
-
-		if (isset($currencyExchangeData['mainCurrencyPurchase'])) {
-			$redis->publish('currencyexchange.maincurrencypurchase', 'true');
-		}
-
-		if (isset($currencyExchangeData['mainCurrencySale'])) {
-			$redis->publish('currencyexchange.maincurrencysale', 'true');
-		}
+		if (!empty($currencyExchangeData)) {
+ 			$redis->publish('currencyexchange.graphtrend', json_encode($currencyExchangeData));
+ 		}
 	}
 }
