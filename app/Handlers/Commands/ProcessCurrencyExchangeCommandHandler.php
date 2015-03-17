@@ -23,9 +23,9 @@ class ProcessCurrencyExchangeCommandHandler
 	public function handle(ProcessCurrencyExchangeCommand $job)
 	{
 		//If the job has failed to be completed after four attempts
-		if ($job->attempts() > 4) {
+		if ($job->attempts() > 2) {
 			//this can also be retrieved in the redis-cli	
-			Log::error('Queue job failure in process currency exchange id:' . $job->id());
+			Log::error('Queue job failure in process currency exchange, check failed jobs logs');
 		} else {
 
 			//build the currency exchange request for the view/graphs
@@ -42,7 +42,7 @@ class ProcessCurrencyExchangeCommandHandler
 				Log::error('Issue rendering data for the graph/view:' . $e);
 			}
 		}
-		
+
 		//Remove the job from the queue
 		$job->delete();
 		//Performs the next job in 5 seconds.
