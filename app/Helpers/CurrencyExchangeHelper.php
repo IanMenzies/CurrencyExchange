@@ -1,4 +1,4 @@
-<?php namespace App\Helper;
+<?php namespace App\Helpers;
 
 /**
  * The currency exchange helper is used to derive patterns

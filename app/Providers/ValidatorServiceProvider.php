@@ -3,6 +3,7 @@
 use Illuminate\Support\ServiceProvider;
 use Validator;
 use App\Services\Validation\ExtendedValidator;
+use App\Services\Module\CurrencyExchange\CurrencyExchangeValidator;
 
 class ValidatorServiceProvider extends ServiceProvider {
 
@@ -25,8 +26,10 @@ class ValidatorServiceProvider extends ServiceProvider {
    * @return void
    */
    public function register()
-  {
-     
-  }
+   {
+      $this->app->singleton('CurrencyExchangeValidator', function() {
+        return new CurrencyExchangeValidator();
+      });
+   }
 
 }

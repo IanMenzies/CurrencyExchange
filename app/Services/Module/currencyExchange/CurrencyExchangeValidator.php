@@ -1,10 +1,10 @@
-<?php namespace App\Services\Module\currencyExchange;
+<?php namespace App\Services\Module\CurrencyExchange;
 
 use Validator;
 /**
  * The currency exchange validator with validating a request
  */
-class CurrencyValidator 
+class CurrencyExchangeValidator 
 {
 	/** we define rules for our custom rules here **/
 	protected $messages = array(

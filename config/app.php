@@ -276,6 +276,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\ValidatorServiceProvider',
 		'App\Providers\HelperServiceProvider',
+		'App\Providers\FacadeServiceProvider',
 
 	],
 
@@ -324,7 +325,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-
+		'Helper'    => 'App\Facades\Helper',
+		'CurrencyExchangeValidator'   => 'App\Facades\CurrencyExchangeValidator',
+		'CurrencyExchangeFacade'      => 'App\Facades\CurrencyExchangeFacade',
 	],
 
 ];

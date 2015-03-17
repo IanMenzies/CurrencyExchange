@@ -2,6 +2,7 @@
 
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use App\Commands\ProcessCurrencyExchangeCommand;
 
 class BusServiceProvider extends ServiceProvider {
 
@@ -28,7 +29,6 @@ class BusServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
 	}
 
 }

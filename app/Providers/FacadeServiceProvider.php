@@ -1,10 +1,9 @@
 <?php namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Helpers\CurrencyExchangeHelper;
+use App\Services\Module\CurrencyExchange\CurrencyExchangeFacade;
 
-class HelperServiceProvider extends ServiceProvider 
-{
+class FacadeServiceProvider extends ServiceProvider {
 
  /**
   * Bootstrap any necessary services.
@@ -13,7 +12,6 @@ class HelperServiceProvider extends ServiceProvider
   */
   public function boot()
   {
-
   }
 
   /**
@@ -23,8 +21,8 @@ class HelperServiceProvider extends ServiceProvider
    */
    public function register()
    {
-      $this->app->bind('CurrencyExchangeHelper', function() {
-        return new CurrencyExchangeHelper();
+      $this->app->bind('CurrencyExchangeFacade', function() {
+        return new CurrencyExchangeFacade();
       });
    }
 

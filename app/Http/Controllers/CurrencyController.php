@@ -4,23 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Services\Module\CurrencyExchange\CurrencyValidator;
 use App\Commands\ProcessCurrencyExchangeCommand;
 use Log;
+use CurrencyExchangeValidator;
 
 class CurrencyController extends Controller {
-	/** valdiator instance **/
-	protected $validator;
 	/** http bad request code **/
 	const HTTP_BAD_REQUEST = 400;
 	/** http response code for succesful request **/
 	const HTTP_OK_REQUEST  = 200;
-
-	public function __construct(
-		CurrencyValidator $currencyValidator
-	) {
-		$this->validator = $currencyValidator;
-	}
 
 	/**
 	 * Deals with the JSON request to convert currency
@@ -31,7 +23,7 @@ class CurrencyController extends Controller {
 	{
 		//Ensure more than x amount of request by the same
 		//user has not been performed  
-		$this->middleware("RateLimiter");
+		$this->middleware('RateLimiter');
 
 		//Check's to see if the Request is json formatted
 		if (!$request->isJson()) {
@@ -47,7 +39,7 @@ class CurrencyController extends Controller {
 
 		//Validate the currency exchange request to ensure its valid
 		$currencyExchangeValidationFailureMessages = 
-			$this->validator->validateCurrencyExchangeRequest($currencyExchangeData);
+			CurrencyExchangeValidator::validateCurrencyExchangeRequest($currencyExchangeData);
 
 		//If the currency exchange request is invalid
 		if (!empty($currencyExchangeValidationFailureMessages)) {

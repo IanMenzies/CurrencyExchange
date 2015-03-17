@@ -1,9 +1,8 @@
 <?php namespace App\Services\Module\CurrencyExchange;
 
-use App\Helper\CurrencyExchangeHelper;
-use App\Events\AddCurrencyExchangeTrendToRealTimeApplication;
 use Illuminate\Events\Dispatcher;
 use Redis;
+use Helper;
 
 /**
  * This class enables us to perform the key business rules of the app
@@ -11,14 +10,6 @@ use Redis;
  */
 class CurrencyExchangeFacade 
 {
-	/* instance of a currency Exchange helper */
-	protected $currencyExchangeHelper;
-
-	public function __construct(CurrencyExchangeHelper $currencyExchangeHelper)
-	{
-		$this->currencyExchangeHelper = $currencyExchangeHelper;
-	}
-
 	/**
 	 * Determines if theres a trend with a
 	 * currency exchange request
@@ -28,7 +19,7 @@ class CurrencyExchangeFacade
 	 */
 	public function checkCurrencyExchangeForTrend($currencyExchangeData)
 	{
-		return $this->currencyExchangeHelper->checkCurrencyExchangeForTrend($currencyExchangeData);	
+		return Helper::checkCurrencyExchangeForTrend($currencyExchangeData);
 	}
 
 	/**
@@ -52,6 +43,7 @@ class CurrencyExchangeFacade
 	 */
 	public function addCurrencyExchangeTrendToRealTimeApplication($currencyExchangeData)
 	{
+		//TODO::This shouldn't be in the facade! Move to an event.
 		$redis = Redis::connection();
 		if (!empty($currencyExchangeData)) {
  			$redis->publish('currencyexchange.graphtrend', json_encode($currencyExchangeData));
